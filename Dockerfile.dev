@@ -1,0 +1,15 @@
+FROM node:16-alpine
+USER root
+
+# Create app directory
+RUN mkdir -p /usr/lib/pcs/api-stripe/
+WORKDIR /usr/lib/pcs/api-stripe/
+
+# Install dependencies
+COPY package.json .
+RUN npm install
+RUN npm config set cache /tmp --global
+
+# Exports
+EXPOSE 80
+CMD [ "npm", "run", "start:dev" ]
